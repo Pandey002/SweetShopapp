@@ -8,7 +8,7 @@ import { createUserTable } from './models/user.model';
 dotenv.config();
 
 // Create the main application (the "brain" of the website)
-const app = express();
+export const app = express();
 // Decide which "door" (port) the website will open on. If not specified, use door 3000.
 const port = process.env.APP_PORT || 3000;
 
@@ -29,5 +29,7 @@ const startServer = async () => {
     }
 };
 
-// Actually run the function to start everything up
-startServer();
+// Actually run the function to start everything up, but only if we are not determining "test" functionality
+if (process.env.NODE_ENV !== 'test') {
+    startServer();
+}
