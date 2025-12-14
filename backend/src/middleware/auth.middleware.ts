@@ -13,11 +13,19 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
         return res.sendStatus(401);
     }
 
-    jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
-        if (err) {
-            return res.sendStatus(403);
-        }
-        req.user = user;
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+        req.user = decoded;
         next();
-    });
+    } catch (err) {
+        return res.sendStatus(403);
+    }
+};
+
+export const isAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).json({ error: 'Access denied. Admin rights required.' });
+    }
 };

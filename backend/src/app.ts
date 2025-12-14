@@ -10,6 +10,12 @@ export const app = express();
 // Enable CORS for all routes
 app.use(cors());
 
+// Debug Middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 

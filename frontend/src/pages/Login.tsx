@@ -15,6 +15,7 @@ const Login = () => {
     try {
       const data = await login({ username, password });
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user)); // Save user info
       navigate('/');
     } catch (err: unknown) {
         if (isAxiosError(err)) {
