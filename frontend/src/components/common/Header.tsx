@@ -10,12 +10,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onLogout, searchTerm, onSearchChange }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full bg-white/20 backdrop-blur-lg border-b border-white/30 shadow-xl transition-all duration-300 rounded-b-7xl">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary hover:opacity-80 transition-opacity">
-            Sweet Shop 🍬
+            Sweet Shop 
           </Link>
         </div>
 
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, searchTerm, onSearchCha
             type="text"
             value={searchTerm}
             onChange={onSearchChange}
-            className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-full leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+            className="block w-full pl-10 pr-3 py-2 border border-white/30 rounded-full leading-5 bg-white/20 text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white/40 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 backdrop-blur-md"
             placeholder="Search for sweets..."
           />
         </div>

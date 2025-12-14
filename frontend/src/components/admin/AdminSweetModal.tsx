@@ -15,7 +15,8 @@ const AdminSweetModal: React.FC<AdminSweetModalProps> = ({ isOpen, onClose, swee
     name: '',
     category: 'Chocolates',
     price: '',
-    quantity: ''
+    quantity: '',
+    imageUrl: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -26,14 +27,16 @@ const AdminSweetModal: React.FC<AdminSweetModalProps> = ({ isOpen, onClose, swee
           name: sweetToEdit.name,
           category: sweetToEdit.category,
           price: sweetToEdit.price.toString(),
-          quantity: sweetToEdit.quantity.toString()
+          quantity: sweetToEdit.quantity.toString(),
+          imageUrl: sweetToEdit.imageUrl || ''
         });
       } else {
         setFormData({
             name: '',
             category: 'Chocolates',
             price: '',
-            quantity: ''
+            quantity: '',
+            imageUrl: ''
         });
       }
     }
@@ -49,7 +52,8 @@ const AdminSweetModal: React.FC<AdminSweetModalProps> = ({ isOpen, onClose, swee
           name: formData.name,
           category: formData.category,
           price: parseFloat(formData.price),
-          quantity: parseInt(formData.quantity)
+          quantity: parseInt(formData.quantity),
+          imageUrl: formData.imageUrl
       };
       await onSave(payload);
       onClose();
@@ -133,6 +137,18 @@ const AdminSweetModal: React.FC<AdminSweetModalProps> = ({ isOpen, onClose, swee
                 placeholder="50"
               />
             </div>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+            <input
+              type="text"
+              name="imageUrl"
+              value={formData.imageUrl}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              placeholder="https://example.com/sweet-image.jpg"
+            />
           </div>
 
           <div className="flex gap-3 pt-4 mt-4 border-t border-gray-100">

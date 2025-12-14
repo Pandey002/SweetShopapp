@@ -14,17 +14,31 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet, onPurchase, isAdmin, onEdi
   const isLowStock = sweet.quantity > 0 && sweet.quantity < 10;
 
   return (
-    <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+    <div className="group relative bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
       
       {/* Decorative Top Banner / Gradient */}
-      <div className="h-32 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 flex items-center justify-center relative">
-         {/* Simple icon based on category or name fallback */}
-         <span className="text-4xl filter drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">🍬</span>
-         
-         <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-600 shadow-sm">
+      {/* Image or Placeholder */}
+      {sweet.imageUrl ? (
+        <div className="h-48 relative overflow-hidden">
+          <img 
+            src={sweet.imageUrl} 
+            alt={sweet.name} 
+            className="w-full h-full object-cover rounded-t-2xl transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-600 shadow-sm">
              {sweet.category}
-         </div>
-      </div>
+          </div>
+        </div>
+      ) : (
+        <div className="h-48 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 flex items-center justify-center relative">
+           {/* Simple icon based on category or name fallback */}
+           <span className="text-6xl filter drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">🍬</span>
+           
+           <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-600 shadow-sm">
+               {sweet.category}
+           </div>
+        </div>
+      )}
 
       <div className="p-5">
         <div className="flex justify-between items-start mb-2">

@@ -13,7 +13,11 @@ export const getAllSweets = async (req: Request, res: Response) => {
 
 export const createSweet = async (req: Request, res: Response) => {
     try {
-        const newSweet = await sweetModel.createSweet(req.body);
+        const { imageUrl, ...sweetData } = req.body;
+        const newSweet = await sweetModel.createSweet({
+            ...sweetData,
+            image_url: imageUrl
+        });
         res.status(201).json(newSweet);
     } catch (error) {
         console.error('Error creating sweet:', error);
@@ -40,7 +44,13 @@ export const getSweetById = async (req: Request, res: Response) => {
 export const updateSweet = async (req: Request, res: Response) => {
     try {
         const id = parseInt(req.params.id);
-        const updatedSweet = await sweetModel.updateSweet(id, req.body);
+        const { imageUrl, ...sweetData } = req.body;
+        const payload = { ...sweetData };
+        if (imageUrl !== undefined) {
+            payload.image_url = imageUrl;
+        }
+
+        const updatedSweet = await sweetModel.updateSweet(id, payload);
         if (!updatedSweet) {
             return res.status(404).json({ error: 'Sweet not found' });
         }

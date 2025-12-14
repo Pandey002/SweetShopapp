@@ -6,6 +6,7 @@ export interface ISweet {
   price: number | string;
   quantity: number;
   category: string;
+  image_url?: string;
 }
 
 export const createSweetTable = async () => {
@@ -15,7 +16,8 @@ export const createSweetTable = async () => {
       name VARCHAR(100) NOT NULL,
       price DECIMAL(10,2) NOT NULL,
       quantity INTEGER NOT NULL DEFAULT 0,
-      category VARCHAR(50) NOT NULL
+      category VARCHAR(50) NOT NULL,
+      image_url VARCHAR(255) DEFAULT NULL
     );
   `;
   try {
@@ -27,10 +29,10 @@ export const createSweetTable = async () => {
 };
 
 export const createSweet = async (sweet: Omit<ISweet, 'id'>): Promise<ISweet> => {
-  const { name, price, quantity, category } = sweet;
+  const { name, price, quantity, category, image_url } = sweet;
   const result = await pool.query(
-    'INSERT INTO sweets (name, price, quantity, category) VALUES ($1, $2, $3, $4) RETURNING *',
-    [name, price, quantity, category]
+    'INSERT INTO sweets (name, price, quantity, category, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    [name, price, quantity, category, image_url]
   );
   return result.rows[0];
 };

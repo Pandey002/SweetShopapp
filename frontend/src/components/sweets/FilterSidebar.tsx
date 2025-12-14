@@ -33,7 +33,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, tota
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 h-full border border-gray-100">
+    <div className="p-6 h-full">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-bold text-gray-800">Filters</h2>
         <span className="text-xs font-medium bg-gray-100 text-gray-500 px-2 py-1 rounded-full">
@@ -48,7 +48,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, tota
             <select
               value={filters.category || 'All'}
               onChange={handleCategoryChange}
-              className="w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-gray-50 hover:bg-white transition-colors cursor-pointer appearance-none border"
+              className="w-full pl-3 pr-10 py-2 text-base border-white/30 focus:outline-none focus:ring-primary focus:border-transparent sm:text-sm rounded-lg bg-white/40 hover:bg-white/50 transition-colors cursor-pointer appearance-none border"
             >
               {CATEGORIES.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
@@ -73,7 +73,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, tota
               placeholder="0"
               value={filters.minPrice ?? ''}
               onChange={handlePriceChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+              className="w-full px-3 py-2 border border-white/30 rounded-lg focus:ring-primary focus:border-primary text-sm bg-white/40"
             />
           </div>
           <span className="text-gray-400 mt-4">-</span>
@@ -86,7 +86,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, tota
               placeholder="Max"
               value={filters.maxPrice ?? ''}
               onChange={handlePriceChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+              className="w-full px-3 py-2 border border-white/30 rounded-lg focus:ring-primary focus:border-primary text-sm bg-white/40"
             />
           </div>
         </div>

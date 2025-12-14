@@ -6,6 +6,7 @@ export interface Sweet {
     category: string;
     price: number;
     quantity: number;
+    imageUrl?: string;
 }
 
 export interface SearchParams {
@@ -17,8 +18,12 @@ export interface SearchParams {
 
 export const sweetService = {
     getAll: async () => {
-        const response = await api.get<Sweet[]>('/sweets');
-        return response.data.map(s => ({ ...s, price: Number(s.price) }));
+        const response = await api.get<any[]>('/sweets');
+        return response.data.map(s => ({
+            ...s,
+            price: Number(s.price),
+            imageUrl: s.image_url
+        })) as Sweet[];
     },
 
     search: async (params: SearchParams) => {
@@ -29,24 +34,43 @@ export const sweetService = {
         if (params.minPrice !== undefined) query.minPrice = params.minPrice;
         if (params.maxPrice !== undefined) query.maxPrice = params.maxPrice;
 
-        const response = await api.get<Sweet[]>('/sweets/search', { params: query });
-        return response.data.map(s => ({ ...s, price: Number(s.price) }));
+        const response = await api.get<any[]>('/sweets/search', { params: query });
+        return response.data.map(s => ({
+            ...s,
+            price: Number(s.price),
+            imageUrl: s.image_url
+        })) as Sweet[];
     },
 
     purchase: async (id: string, quantity: number) => {
         const response = await api.post(`/sweets/${id}/purchase`, { quantity });
-        return { ...response.data, price: Number(response.data.price) };
+        const s = response.data;
+        return {
+            ...s,
+            price: Number(s.price),
+            imageUrl: s.image_url
+        } as Sweet;
     },
 
     // Admin endpoints
     create: async (data: Omit<Sweet, 'id'>) => {
         const response = await api.post('/sweets', data);
-        return { ...response.data, price: Number(response.data.price) };
+        const s = response.data;
+        return {
+            ...s,
+            price: Number(s.price),
+            imageUrl: s.image_url
+        } as Sweet;
     },
 
     update: async (id: string, data: Partial<Sweet>) => {
         const response = await api.put(`/sweets/${id}`, data);
-        return { ...response.data, price: Number(response.data.price) };
+        const s = response.data;
+        return {
+            ...s,
+            price: Number(s.price),
+            imageUrl: s.image_url
+        } as Sweet;
     },
 
     delete: async (id: string) => {
