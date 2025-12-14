@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { createUserTable } from './models/user.model';
 import authRoutes from './routes/auth.routes';
 
+import cors from 'cors';
+
 // Load settings from the configuration file (like passwords and addresses)
 dotenv.config();
 
@@ -12,6 +14,9 @@ dotenv.config();
 export const app = express();
 // Decide which "door" (port) the website will open on. If not specified, use door 3000.
 const port = process.env.APP_PORT || 3000;
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
