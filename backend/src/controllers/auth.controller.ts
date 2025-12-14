@@ -60,7 +60,15 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             { expiresIn: (process.env.JWT_EXPIRES_IN || '1h') as any }
         );
 
-        res.status(200).json({ message: 'Login successful', token });
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                role: user.role,
+            },
+        });
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ message: 'Internal server error' });

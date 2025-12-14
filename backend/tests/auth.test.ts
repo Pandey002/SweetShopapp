@@ -32,7 +32,7 @@ describe('Auth Integration Tests', () => {
     });
 
     describe('POST /api/auth/login', () => {
-        it('should login with registered user and return token', async () => {
+        it('should login with registered user and return token and user details', async () => {
             const res = await request(app)
                 .post('/api/auth/login')
                 .send({
@@ -42,6 +42,10 @@ describe('Auth Integration Tests', () => {
 
             expect(res.status).toBe(200);
             expect(res.body).toHaveProperty('token');
+            expect(res.body).toHaveProperty('user');
+            expect(res.body.user).toHaveProperty('id');
+            expect(res.body.user).toHaveProperty('username', 'testuser');
+            expect(res.body.user).toHaveProperty('role');
         });
     });
 });
